@@ -23,8 +23,11 @@ services:
     build:
       context: ./docker/backend
       dockerfile: Dockerfile
+      shm_size: '2gb'
     container_name: mahjong_backend
     restart: always
+    mem_limit: 4g
+    shm_size: 2g
     ports:
       - "8000:80"
     volumes:
@@ -43,8 +46,8 @@ services:
   # React フロントエンド
   frontend:
     build:
-      context: ./docker/frontend
-      dockerfile: Dockerfile
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
     container_name: mahjong_frontend
     restart: always
     ports:

@@ -1,16 +1,5 @@
-FROM php:8.2-apache
-
-# 必要なパッケージのインストール
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+# シンプルなPHP+Apacheイメージ（軽量版）
+FROM php:8.2-apache-bullseye
 
 # Composer のインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -18,8 +7,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Apache の mod_rewrite を有効化
 RUN a2enmod rewrite
 
-# Apache の設定
+# Apache の設定をコピー
 COPY ./apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Apacheのデフォルト設定を無効化し、新しい設定を有効化
+RUN a2dissite 000-default || true && \
+    a2ensite 000-default
 
 # 作業ディレクトリの設定
 WORKDIR /var/www/html
