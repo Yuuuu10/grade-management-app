@@ -1,0 +1,128 @@
+.games-list {
+  display: grid;
+  gap: 20px;
+}
+
+.game-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.game-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.game-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 14px;
+  color: #666;
+}
+
+.meta-item strong {
+  color: #333;
+}
+
+.game-players {
+  margin-bottom: 15px;
+}
+
+.game-players table {
+  margin: 0;
+}
+
+.rank-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.rank-badge.rank-1 {
+  background-color: #FFD700;
+  color: #333;
+}
+
+.rank-badge.rank-2 {
+  background-color: #C0C0C0;
+  color: #333;
+}
+
+.rank-badge.rank-3 {
+  background-color: #CD7F32;
+  color: white;
+}
+
+.rank-badge.rank-4 {
+  background-color: #666;
+  color: white;
+}
+
+.positive {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.negative {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.game-notes {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.game-notes strong {
+  color: #333;
+}
+
+.game-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+  }
+
+  .game-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .game-players table {
+    font-size: 14px;
+  }
+
+  .game-players th,
+  .game-players td {
+    padding: 8px 4px;
+  }
+}

@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # MySQL データベース
+  db:
+    image: mysql:8.0
+    container_name: mahjong_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: mahjong_app
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mahjong_user
+      MYSQL_PASSWORD: mahjong_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - mahjong_network
+
+  # PHP + Apache (Laravel)
+  backend:
+    build:
+      context: ./docker/backend
+      dockerfile: Dockerfile
+    container_name: mahjong_backend
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=mahjong_app
+      - DB_USERNAME=mahjong_user
+      - DB_PASSWORD=mahjong_pass
+    networks:
+      - mahjong_network
+
+  # React フロントエンド
+  frontend:
+    build:
+      context: ./docker/frontend
+      dockerfile: Dockerfile
+    container_name: mahjong_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    networks:
+      - mahjong_network
+    stdin_open: true
+    tty: true
+
+volumes:
+  db_data:
+
+networks:
+  mahjong_network:
+    driver: bridge
