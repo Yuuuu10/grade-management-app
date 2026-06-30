@@ -6,6 +6,10 @@ import './Auth.css';
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('parlor');
+  const [phone, setPhone] = useState('');
+  const [area, setArea] = useState('');
+  const [profile, setProfile] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
@@ -29,7 +33,16 @@ function Register() {
 
     setLoading(true);
 
-    const result = await register(name, email, password, passwordConfirmation);
+    const result = await register({
+      name,
+      email,
+      role,
+      phone,
+      area,
+      profile,
+      password,
+      password_confirmation: passwordConfirmation,
+    });
     
     if (result.success) {
       navigate('/');
@@ -43,7 +56,7 @@ function Register() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1 className="auth-title">🀄 麻雀成績管理</h1>
+        <h1 className="auth-title">🀄 麻雀マッチング</h1>
         <h2 className="auth-subtitle">新規登録</h2>
         
         <form onSubmit={handleSubmit} className="auth-form">
@@ -68,6 +81,52 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="example@email.com"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="role">利用タイプ</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              <option value="parlor">雀荘</option>
+              <option value="pro">麻雀プロ</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phone">連絡先（任意）</label>
+            <input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="090-xxxx-xxxx"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="area">活動エリア（任意）</label>
+            <input
+              type="text"
+              id="area"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
+              placeholder="東京都 / 大阪市 など"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="profile">プロフィール（任意）</label>
+            <textarea
+              id="profile"
+              value={profile}
+              onChange={(e) => setProfile(e.target.value)}
+              rows={3}
+              placeholder="自己紹介、希望条件など"
             />
           </div>
 

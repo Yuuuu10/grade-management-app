@@ -15,6 +15,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'phone',
+        'area',
+        'profile',
     ];
 
     protected $hidden = [
@@ -45,5 +49,25 @@ class User extends Authenticatable
     public function createdGames()
     {
         return $this->hasMany(Game::class, 'created_by');
+    }
+
+    public function sentOffers()
+    {
+        return $this->hasMany(Offer::class, 'from_user_id');
+    }
+
+    public function receivedOffers()
+    {
+        return $this->hasMany(Offer::class, 'to_user_id');
+    }
+
+    public function offerMessages()
+    {
+        return $this->hasMany(OfferMessage::class, 'sender_id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }

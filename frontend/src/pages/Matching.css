@@ -1,0 +1,102 @@
+.metric-card {
+  text-align: center;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-top: 8px;
+}
+
+.dashboard-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 12px;
+}
+
+.inline-form {
+  display: flex;
+  gap: 12px;
+}
+
+.inline-form input,
+.inline-form select {
+  flex: 1;
+}
+
+.card-text {
+  margin: 8px 0 12px;
+  color: #555;
+}
+
+.offer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.status-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending { background: #fff3cd; color: #856404; }
+.status-accepted { background: #d1ecf1; color: #0c5460; }
+.status-rejected { background: #f8d7da; color: #721c24; }
+.status-in_progress { background: #d4edda; color: #155724; }
+.status-completed { background: #e2e3e5; color: #383d41; }
+.status-cancelled { background: #f5c6cb; color: #721c24; }
+
+.offer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.chat-box {
+  min-height: 280px;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-item {
+  max-width: 75%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f1f1f1;
+}
+
+.my-message {
+  margin-left: auto;
+  background: #d4edda;
+}
+
+.message-meta {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .inline-form {
+    flex-direction: column;
+  }
+
+  .message-item {
+    max-width: 100%;
+  }
+}

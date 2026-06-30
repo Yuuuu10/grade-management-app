@@ -20,30 +20,30 @@ function Navigation() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          🀄 麻雀成績管理
+          🀄 麻雀マッチング
         </Link>
         <ul className="navbar-menu">
           <li>
             <Link to="/" className="navbar-link">ダッシュボード</Link>
           </li>
-          <li>
-            <Link to="/games" className="navbar-link">成績一覧</Link>
-          </li>
-          <li>
-            <Link to="/games/new" className="navbar-link">成績登録</Link>
-          </li>
-          <li>
-            <Link to="/rules" className="navbar-link">ルール設定</Link>
-          </li>
-          <li>
-            <Link to="/locations" className="navbar-link">場所登録</Link>
-          </li>
-          <li>
-            <Link to="/statistics" className="navbar-link">統計</Link>
-          </li>
+          {user.role !== 'admin' && (
+            <>
+              <li>
+                <Link to="/directory" className="navbar-link">相手を探す</Link>
+              </li>
+              <li>
+                <Link to="/offers" className="navbar-link">オファー管理</Link>
+              </li>
+            </>
+          )}
+          {user.role === 'admin' && (
+            <li>
+              <Link to="/admin" className="navbar-link">管理画面</Link>
+            </li>
+          )}
         </ul>
         <div className="navbar-user">
-          <span className="user-name">{user.name}</span>
+          <span className="user-name">{user.name} ({user.role})</span>
           <button onClick={handleLogout} className="btn-logout">
             ログアウト
           </button>
