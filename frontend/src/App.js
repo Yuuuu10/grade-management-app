@@ -3,12 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Rules from './pages/Rules';
-import Locations from './pages/Locations';
-import Games from './pages/Games';
-import GameForm from './pages/GameForm';
-import Statistics from './pages/Statistics';
+import MatchingDashboard from './pages/MatchingDashboard';
+import UserDirectory from './pages/UserDirectory';
+import OfferBoard from './pages/OfferBoard';
+import OfferMessages from './pages/OfferMessages';
+import AdminPanel from './pages/AdminPanel';
 import Navigation from './components/Navigation';
 import './App.css';
 
@@ -20,6 +19,17 @@ function PrivateRoute({ children }) {
 function PublicRoute({ children }) {
   const { user } = useAuth();
   return !user ? children : <Navigate to="/" />;
+}
+
+function AdminRoute({ children }) {
+  const { user } = useAuth();
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  if (user.role !== 'admin') {
+    return <Navigate to="/" />;
+  }
+  return children;
 }
 
 function App() {
@@ -42,33 +52,28 @@ function App() {
               } />
               <Route path="/" element={
                 <PrivateRoute>
-                  <Dashboard />
+                  <MatchingDashboard />
                 </PrivateRoute>
               } />
-              <Route path="/rules" element={
+              <Route path="/directory" element={
                 <PrivateRoute>
-                  <Rules />
+                  <UserDirectory />
                 </PrivateRoute>
               } />
-              <Route path="/locations" element={
+              <Route path="/offers" element={
                 <PrivateRoute>
-                  <Locations />
+                  <OfferBoard />
                 </PrivateRoute>
               } />
-              <Route path="/games" element={
+              <Route path="/offers/:id" element={
                 <PrivateRoute>
-                  <Games />
+                  <OfferMessages />
                 </PrivateRoute>
               } />
-              <Route path="/games/new" element={
-                <PrivateRoute>
-                  <GameForm />
-                </PrivateRoute>
-              } />
-              <Route path="/statistics" element={
-                <PrivateRoute>
-                  <Statistics />
-                </PrivateRoute>
+              <Route path="/admin" element={
+                <AdminRoute>
+                  <AdminPanel />
+                </AdminRoute>
               } />
             </Routes>
           </main>
